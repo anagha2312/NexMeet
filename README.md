@@ -1,17 +1,18 @@
 <div align="center">
 
-<img src="public/icons/logo.svg" width="64" height="64" alt="NexMeet logo" />
+<img src="public/icons/logo.svg" width="72" height="72" alt="NexMeet logo" />
 
 # NexMeet
 
-**A full-featured video conferencing platform — instant meetings, scheduling, recordings, and real-time collaboration.**
+**Full-stack video conferencing platform — instant meetings, scheduling, recordings, and real-time collaboration.**
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-nex--meet--umber.vercel.app-brightgreen?style=for-the-badge&logo=vercel)](https://nex-meet-umber.vercel.app)
 
 [![Next.js](https://img.shields.io/badge/Next.js_14-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Clerk](https://img.shields.io/badge/Clerk-6C47FF?style=for-the-badge&logo=clerk&logoColor=white)](https://clerk.com/)
 [![Stream](https://img.shields.io/badge/Stream_Video-005FFF?style=for-the-badge&logo=stream&logoColor=white)](https://getstream.io/video/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
 </div>
 
@@ -19,206 +20,145 @@
 
 ## Overview
 
-**NexMeet** is a Zoom/Google Meet–style video calling application built with **Next.js 14 (App Router)**, **TypeScript**, **Clerk** for authentication, and **Stream's Video SDK** for real-time audio/video infrastructure.
+NexMeet is a production-deployed, Zoom-style video conferencing application built with **Next.js 14 App Router** and **TypeScript**. It integrates **Clerk** for secure authentication and **Stream Video SDK** for real-time audio/video infrastructure, demonstrating end-to-end full-stack development — from protected server actions and middleware-based route guarding to a fully responsive, dark-themed UI deployed on Vercel.
 
-It covers the full lifecycle of a meeting — creating instant meetings, scheduling future ones, joining via shareable links, managing in-call controls (mute, camera, screen share, recording, layouts), and reviewing past meetings and recordings — wrapped in a responsive, dark-themed UI.
+**Live at → [nex-meet-umber.vercel.app](https://nex-meet-umber.vercel.app)**
 
-## Table of Contents
+---
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Environment Variables](#environment-variables)
-- [Available Scripts](#available-scripts)
-- [Deployment](#deployment)
-- [Roadmap](#roadmap)
-- [License](#license)
+## Key Features
 
-## Features
+- **Instant Meetings** — create and join a live call in one click
+- **Scheduled Meetings** — pick a date/time, generate a shareable invite link, and see upcoming meetings on the dashboard
+- **Join via Link** — paste any invite link to jump into an existing call
+- **Personal Room** — a permanent, stable meeting room tied to each user's account
+- **In-call Controls** — mute/unmute, camera toggle, screen sharing, emoji reactions, recording, and switchable layouts (Grid, Speaker-left, Speaker-right)
+- **Meeting History** — browse all past meetings and cloud recordings with one-click playback
+- **Responsive Design** — sidebar navigation on desktop, slide-out hamburger menu on mobile
 
-### 🔐 Authentication
-Secure sign-up/sign-in via **Clerk** (social providers or email & password). All app routes (`/`, `/upcoming`, `/previous`, `/recordings`, `/personal-room`, `/meeting/*`) are protected by Clerk middleware and redirect unauthenticated users to the sign-in page.
-
-### 🏠 Dashboard
-- Live clock and date display.
-- A dynamic **"Upcoming Meeting"** banner that automatically shows the date/time of your next scheduled call (or "No Upcoming Meetings" if none exist).
-- Quick-action cards for the four core flows: New Meeting, Join Meeting, Schedule Meeting, View Recordings.
-
-### ⚡ Instant Meetings
-Start a meeting immediately — a Stream call is created on the fly and you're dropped straight into the device setup screen.
-
-### 🔗 Join via Link
-Paste any meeting invite link to jump directly into that call.
-
-### 📅 Schedule Future Meetings
-Pick a date/time and add a description to create a meeting in advance. Generates a shareable invite link that can be copied to the clipboard, and the meeting automatically appears on the **Upcoming** page.
-
-### 🎛️ Meeting Setup & In-Call Controls
-- Camera/microphone preview and device selection before joining, with the option to join muted/camera-off.
-- Full call controls: mute/unmute, camera toggle, screen sharing, emoji reactions, and recording (powered by Stream's `CallControls`).
-- Switchable layouts — **Grid**, **Speaker (left)**, and **Speaker (right)** — via an in-call dropdown.
-- Live participant list panel and call statistics view.
-- Graceful handling of edge cases: meetings that haven't started yet, calls that have already ended, and unauthorized access to invite-only calls.
-
-### 🚪 Leaving / Ending a Meeting
-Any participant can leave a call and return to the dashboard. The meeting **owner** additionally sees an **"End call for everyone"** action that terminates the call for all participants.
-
-### 🧑‍💼 Personal Room
-Every user gets a permanent personal meeting room (tied to their user ID) with a stable, shareable invite link — perfect for recurring 1:1s or "always-on" rooms.
-
-### 🕓 Previous Meetings
-Browse a history of all meetings you've created or attended.
-
-### 🎬 Recordings
-Automatically lists cloud recordings for your calls, with a one-click **Play** action that opens the recording.
-
-### 📱 Responsive Design
-A persistent sidebar on desktop and a slide-out sheet/hamburger navigation on mobile, with a fully responsive meeting room and dashboard layout.
+---
 
 ## Tech Stack
 
-| Category | Technology |
-| --- | --- |
-| Framework | [Next.js 14](https://nextjs.org/) (App Router, Server Components) |
-| Language | [TypeScript](https://www.typescriptlang.org/) |
-| Authentication | [Clerk](https://clerk.com/) |
-| Real-time Video/Audio | [Stream Video React SDK](https://getstream.io/video/) + [Stream Node SDK](https://github.com/GetStream/stream-node) (token generation) |
-| Styling | [Tailwind CSS](https://tailwindcss.com/) + custom dark theme |
-| UI Components | [shadcn/ui](https://ui.shadcn.com/) on top of [Radix UI](https://www.radix-ui.com/) primitives |
-| Icons | [lucide-react](https://lucide.dev/) + custom SVGs |
-| Forms/Date Picker | [react-datepicker](https://www.npmjs.com/package/react-datepicker) |
-| Misc | `class-variance-authority`, `clsx`, `tailwind-merge`, `uuid`, `date-fns` |
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 14 (App Router, Server Components, Server Actions) |
+| Language | TypeScript |
+| Authentication | Clerk (JWT-based, middleware-protected routes) |
+| Real-time Video | Stream Video React SDK + Stream Node SDK |
+| Styling | Tailwind CSS with custom dark theme |
+| UI Primitives | shadcn/ui + Radix UI |
+| Deployment | Vercel |
+
+---
+
+## Architecture Highlights
+
+- **Server Actions** (`actions/stream.actions.ts`) — server-side token generation for Stream Video using the signed-in Clerk user's ID, keeping the Stream secret key off the client entirely
+- **Middleware route protection** (`middleware.ts`) — Clerk middleware guards all core routes at the edge, redirecting unauthenticated requests before they hit any page component
+- **Custom hooks** (`useGetCalls`, `useGetCallById`) — abstract Stream SDK calls into clean, reusable data-fetching hooks that classify meetings into upcoming, ended, and recorded
+- **Stream client provider** — initializes a per-user `StreamVideoClient` instance in a React context provider, scoped to the authenticated session
+
+---
 
 ## Project Structure
 
 ```
 NexMeet/
 ├── actions/
-│   └── stream.actions.ts      # Server action: issues Stream video tokens for the signed-in Clerk user
+│   └── stream.actions.ts          # Server action: mints Stream tokens for authenticated users
 ├── app/
-│   ├── (auth)/
-│   │   ├── sign-in/[[...sign-in]]/
-│   │   └── sign-up/[[...sign-up]]/
+│   ├── (auth)/sign-in & sign-up/  # Clerk-hosted auth pages
 │   ├── (root)/
-│   │   ├── (home)/
-│   │   │   ├── page.tsx            # Dashboard
-│   │   │   ├── upcoming/page.tsx   # Upcoming meetings
-│   │   │   ├── previous/page.tsx   # Past meetings
-│   │   │   ├── recordings/page.tsx # Call recordings
-│   │   │   └── personal-room/page.tsx
-│   │   └── meeting/[id]/page.tsx   # Meeting setup + live call room
-│   ├── globals.css
-│   └── layout.tsx
+│   │   ├── (home)/                # Dashboard, upcoming, previous, recordings, personal-room
+│   │   └── meeting/[id]/          # Meeting setup + live call room
+│   └── layout.tsx                 # ClerkProvider + global styles
 ├── components/
-│   ├── ui/                     # shadcn/ui primitives (button, dialog, sheet, toast, ...)
-│   ├── MeetingRoom.tsx          # In-call UI: layouts, controls, participants
-│   ├── MeetingSetup.tsx         # Pre-call device setup
-│   ├── MeetingTypeList.tsx      # Dashboard action cards + create/join/schedule modals
-│   ├── CallList.tsx / MeetingCard.tsx
-│   ├── Sidebar.tsx / Navbar.tsx / MobileNav.tsx
-│   └── UpcomingMeetingBanner.tsx
+│   ├── MeetingRoom.tsx            # In-call UI: layouts, controls, participant list
+│   ├── MeetingSetup.tsx           # Pre-call device preview and permissions
+│   ├── MeetingTypeList.tsx        # Dashboard action cards + create/join/schedule modals
+│   ├── CallList.tsx               # Renders upcoming, previous, and recording lists
+│   └── ui/                        # shadcn/ui primitives
 ├── hooks/
-│   ├── useGetCalls.ts          # Fetch + classify calls (upcoming/ended/recordings)
-│   └── useGetCallById.ts
+│   ├── useGetCalls.ts             # Fetches and classifies all calls for the current user
+│   └── useGetCallById.ts          # Fetches a single call by ID for the meeting page
 ├── providers/
-│   └── StreamClientProvider.tsx # Initializes the Stream video client per signed-in user
-├── constants/
-│   └── index.ts                # Sidebar links, avatar images
-├── middleware.ts                # Clerk route protection
-└── public/                      # Icons & images
+│   └── StreamClientProvider.tsx   # Initializes Stream video client per signed-in user
+├── middleware.ts                  # Clerk edge middleware — protects all core routes
+└── constants/index.ts             # Sidebar nav config, avatar assets
 ```
+
+---
 
 ## Getting Started
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) v18+
-- [npm](https://www.npmjs.com/)
-- A free [Clerk](https://dashboard.clerk.com/) account (for authentication)
-- A free [Stream](https://dashboard.getstream.io/) account (for video calling)
+- Node.js v18+
+- A free [Clerk](https://dashboard.clerk.com/) account
+- A free [Stream](https://dashboard.getstream.io/) account
 
-### 1. Clone the repository
+### 1. Clone and install
 
 ```bash
 git clone https://github.com/anagha2312/NexMeet.git
 cd NexMeet
-```
-
-### 2. Install dependencies
-
-```bash
 npm install
 ```
 
-### 3. Configure environment variables
+### 2. Set up environment variables
 
-Copy the example file and fill in your own keys:
+Create a `.env.local` file in the root and add the following:
 
-```bash
-cp .env.example .env.local
+```env
+# Clerk — https://dashboard.clerk.com
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+
+# Stream Video — https://dashboard.getstream.io
+NEXT_PUBLIC_STREAM_API_KEY=your_stream_api_key
+STREAM_SECRET_KEY=your_stream_secret_key
+
+# App
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
 ```
 
-See [Environment Variables](#environment-variables) below for where to get each value.
-
-### 4. Run the development server
+### 3. Run the development server
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the app. You'll be redirected to `/sign-in` until you create an account.
+Open [http://localhost:3000](http://localhost:3000) — you'll be redirected to `/sign-in` until you create an account.
 
-## Environment Variables
-
-All variables are documented in [`.env.example`](.env.example).
-
-| Variable | Description |
-| --- | --- |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk publishable key — from your Clerk app's **API Keys** page. |
-| `CLERK_SECRET_KEY` | Clerk secret key (server-side only). |
-| `NEXT_PUBLIC_CLERK_SIGN_IN_URL` | Route for the sign-in page (`/sign-in`). |
-| `NEXT_PUBLIC_CLERK_SIGN_UP_URL` | Route for the sign-up page (`/sign-up`). |
-| `NEXT_PUBLIC_STREAM_API_KEY` | Stream Video API key — from your Stream app's dashboard. |
-| `STREAM_SECRET_KEY` | Stream Video API secret, used server-side to mint user tokens. |
-| `NEXT_PUBLIC_BASE_URL` | Base URL used to build shareable meeting/invite links (`http://localhost:3000` locally, your deployed URL in production). |
-
-## Available Scripts
-
-| Script | Description |
-| --- | --- |
-| `npm run dev` | Start the app in development mode. |
-| `npm run build` | Create an optimized production build. |
-| `npm run start` | Run the production build. |
-| `npm run lint` | Run ESLint across the project. |
+---
 
 ## Deployment
 
-The easiest way to deploy NexMeet is with [Vercel](https://vercel.com):
+Deployed on **Vercel**. To deploy your own instance:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/anagha2312/NexMeet)
+1. Push the repo to GitHub and import it into [Vercel](https://vercel.com)
+2. Add all environment variables from `.env.local` in Vercel's **Settings → Environment Variables**
+3. Set `NEXT_PUBLIC_BASE_URL` to your Vercel production URL
+4. Redeploy — the app will be live
 
-1. Push your fork to GitHub and import it into Vercel.
-2. Add the same variables from [`.env.example`](.env.example) in the Vercel project's **Environment Variables** settings.
-3. Set `NEXT_PUBLIC_BASE_URL` to your production URL (e.g. `https://nexmeet.vercel.app`).
-4. Add your production domain to the allowed redirect URLs in your Clerk dashboard.
+---
 
-## Roadmap
+## Scripts
 
-- [ ] In-call text chat alongside video.
-- [ ] Meeting transcription / AI-generated summaries.
-- [ ] Calendar (Google/Outlook) sync for scheduled meetings.
-- [ ] Waiting room / host approval before joining.
-- [ ] Automated end-to-end tests for the scheduling and call flows.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+| Command | Description |
+|---|---|
+| `npm run dev` | Start development server |
+| `npm run build` | Create optimized production build |
+| `npm run start` | Run production build locally |
+| `npm run lint` | Run ESLint |
 
 ---
 
 <div align="center">
 
-Built by [Anagha](https://github.com/anagha2312)
+Built by [Anagha Prajapati](https://github.com/anagha2312)
 
 </div>
