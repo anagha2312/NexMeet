@@ -8,7 +8,7 @@
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-nex--meet--umber.vercel.app-brightgreen?style=for-the-badge&logo=vercel)](https://nex-meet-umber.vercel.app)
 
-> **⚠️ Important Note for Reviewers**
+> **⚠️ Important Note **
 >
 > **The Vercel deployment link above will not support sign-in/sign-up.** This is due to a hard limitation of Clerk's development authentication instance — it only works on `localhost` and requires a paid custom domain to function on any public URL. The app is fully functional and can be run locally by following the [Getting Started](#getting-started) steps below. All features — instant meetings, scheduling, recordings, personal rooms — work completely when run on localhost.
 
