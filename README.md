@@ -1,6 +1,3 @@
-<div align="center">
-
-<img src="public/icons/logo.svg" width="72" height="72" alt="NexMeet logo" />
 
 # NexMeet
 
